@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package Team4Week2;
 
 //package CSE360;
@@ -26,7 +27,7 @@ public class ExampleWeather extends JFrame{
     private JPanel p;
     //private JButton b1;
     //private JLabel label;
-    private JTextArea ta1, ta2, ta3, ta4, ta5, ta6, ta7, ta8, ta9;
+    private JTextArea ta1, ta2, ta3, ta4, ta5, ta6, ta7, ta8, ta9, ta10;
     private GridLayout grid;
     
     
@@ -39,16 +40,16 @@ public class ExampleWeather extends JFrame{
     public void gui(){
         f = new JFrame();
         f.setVisible(true);
-        f.setSize(600,800);
+        f.setSize(600,400);
         f.setTitle("Darksky Weather");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         p = new JPanel();
-        p.setBackground(Color.YELLOW);
+        //p.setBackground(Color.YELLOW);
         
         //b1 = new JButton("Get Weather");
         //tf1 = new JTextField("TEst1");
-        ta1 = new JTextArea(1,20);
+        ta1 = new JTextArea(2,10);
         ta2 = new JTextArea(1,20);
         ta3 = new JTextArea(1,20);
         ta4 = new JTextArea(1,50);
@@ -57,6 +58,7 @@ public class ExampleWeather extends JFrame{
         ta7 = new JTextArea(1,20);
         ta8 = new JTextArea(1,20);
         ta9 = new JTextArea(1,20);
+        ta10 = new JTextArea(1,20);
         
         ta1.setEditable(false);
         ta2.setEditable(false);
@@ -67,6 +69,7 @@ public class ExampleWeather extends JFrame{
         ta7.setEditable(false);
         ta8.setEditable(false);
         ta9.setEditable(false);
+        ta10.setEditable(false);
         //tf2 = new JTextField("Test2",20);
         //label = new JLabel("Weather Pane");
         p.setLayout(new GridLayout(0,1));
@@ -79,6 +82,8 @@ public class ExampleWeather extends JFrame{
         p.add(ta6);
         p.add(ta7);
         p.add(ta8);
+        p.add(ta9);
+        p.add(ta10);
         //p.add(label);
         
         //p.add(tf1,BorderLayout.SOUTH);
@@ -92,11 +97,12 @@ public class ExampleWeather extends JFrame{
         ta5.setText("Text Area 5");
         ta6.setText("Text Area 6");
         ta7.setText("Text Area 7");
-        ta8.setText("Text Area 8");
-        
-        
-        
+        ta8.setText("Text Area 8");    
+        ta9.setText("Text Area 9");
+        ta10.setText("Text Area 10");
     }
+    
+    
 
   private static String readAll(Reader rd) throws IOException {
     StringBuilder sb = new StringBuilder();
@@ -128,19 +134,22 @@ public class ExampleWeather extends JFrame{
         
     String yourKey = "cab82799b5b1e817dbccab51d6d7ec40"; 
     JSONObject json = readJsonFromUrl("https://api.darksky.net/forecast/"
-            + yourKey +"/37.8267,-122.4233");
-    //System.out.println(json.toString());
-    System.out.println(json.getJSONObject("currently").getString("summary"));        
-    //System.out.println(json.getJSONObject("currently").getString("pressure"));
+            + yourKey +"/33.421968,-111.936642");
+    System.out.println(json.get("timezone"));
+    
     
     Double time = 0.0;
+    Double temp = 0.0;
     Double nearestStorm = 0.0;
     Double probPrecip = 0.0;      
     Double windVelocity = 0.0;
     Double windDirection = 0.0;
     Double atmosPressure = 0.0;
     Double vis = 0.0;
+    Object timeZone = json.get("timezone");
+    //String compass;
     
+    temp = json.getJSONObject("currently").getDouble("temperature");
     nearestStorm = json.getJSONObject("currently").getDouble("nearestStormDistance");
     time = json.getJSONObject("currently").getDouble("time");
     probPrecip = json.getJSONObject("currently").getDouble("precipProbability");
@@ -151,19 +160,19 @@ public class ExampleWeather extends JFrame{
     
     System.out.println("Nearest Storm: " + nearestStorm + " miles");
     System.out.println("Probability of Precipitation :" + probPrecip + "%");
+    System.out.println(json.getJSONObject("currently").getString("summary"));        
+    System.out.println(json.getJSONObject("currently").getDouble("pressure"));
     
-
-
-    //e.ta1.setText(json.getJSONObject("currently").getString("time"));        
-    //e.ta1.setText("Icon: " + json.getJSONObject("currently").getString("icon"));
-    e.ta1.setText("Forecast: " + json.getJSONObject("daily").getString("summary"));
-    e.ta2.setText("Currently: " + json.getJSONObject("currently").getString("summary"));
-    e.ta3.setText("Nearest Storm: " + String.valueOf(nearestStorm) + " miles");
-    e.ta4.setText("Prob of Precip: " + String.valueOf(probPrecip) + "%");
-    e.ta5.setText("Wind Speed: " + String.valueOf(windVelocity) + " mph");
-    e.ta6.setText("Wind Direction: " + String.valueOf(windDirection) + "°");
-    e.ta7.setText("Pressure: " + String.valueOf(atmosPressure) + " hPa");
-    e.ta8.setText("Visibility: " + String.valueOf(vis) + " miles");
+    e.ta1.setText((String) timeZone);
+    e.ta2.setText("Forecast: " + json.getJSONObject("daily").getString("summary"));
+    e.ta3.setText("Currently: " + json.getJSONObject("currently").getString("summary"));
+    e.ta4.setText("Temp: " + String.valueOf(temp) + "°F");
+    e.ta5.setText("Nearest Storm: " + String.valueOf(nearestStorm) + " miles");
+    e.ta6.setText("Prob of Precip: " + String.valueOf(probPrecip) + "%");
+    e.ta7.setText("Wind Speed: " + String.valueOf(windVelocity) + " mph");
+    e.ta8.setText("Wind Direction: " + String.valueOf(windDirection) + "°");
+    e.ta9.setText("Pressure: " + String.valueOf(atmosPressure) + " hPa");
+    e.ta10.setText("Visibility: " + String.valueOf(vis) + " miles");
    
     
     //e.ta5.setText(String.valueOf(time));
