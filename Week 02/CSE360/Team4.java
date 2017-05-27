@@ -6,11 +6,11 @@
 //package Team4Week2;
 package CSE360;
 
+
 import java.awt.*;
 import java.io.*;
 import javax.swing.*;
 import org.json.JSONException;
-
 
 
 /**
@@ -18,17 +18,15 @@ import org.json.JSONException;
  * @author rsatchel
  */
 public class Team4 extends JPanel{
-    //JPanel myPanel = new JPanel();
     GridLayout myGrid= new GridLayout (1,2); 
     
     
-    //public Team4 myTeam4 = new Team4();
     
     
     public Team4() {
         try{
         
-        System.out.println("Team 4 class called");
+        //System.out.println("Team 4 class called");
         this.setLayout(myGrid);
         this.setVisible(true);
         this.setSize(250,125);
@@ -36,10 +34,10 @@ public class Team4 extends JPanel{
         this.add(new ExampleGoogleMaps().createMap());
         }
         catch(IOException e){
-            
+            System.out.println("IO Exception !!");
         }
         catch (JSONException e){
-            
+            System.out.println("JSON Exception !!");
         }
     }
     

@@ -23,31 +23,27 @@ import org.json.JSONObject;
 
 public class ExampleWeather extends JPanel{
     
-    //private JFrame f;
-    //public JPanel weatherPanel;
     private JTextArea ta1, ta2, ta3, ta4, ta5, ta6, ta7, ta8, ta9, ta10;
     private GridLayout grid;
     
     
     public ExampleWeather() throws IOException, JSONException{
         
-        createWeather();
-        
+        createWeather();    
     }
     
     public void createWeather() throws IOException, JSONException{
-        System.out.println("create Weather called");
-        //ExampleWeather e = new ExampleWeather();
+        //System.out.println("create Weather called");
         
         String yourKey = "cab82799b5b1e817dbccab51d6d7ec40"; 
         JSONObject json = readJsonFromUrl("https://api.darksky.net/forecast/"
                 + yourKey +"/33.421968,-111.936642");
-        System.out.println(json.get("timezone"));
+        //System.out.println(json.get("timezone"));
 
-        ta1 = new JTextArea(1,10);
+        ta1 = new JTextArea(1,20);
         ta2 = new JTextArea(1,20);
         ta3 = new JTextArea(1,20);
-        ta4 = new JTextArea(1,50);
+        ta4 = new JTextArea(1,20);
         ta5 = new JTextArea(1,20);
         ta6 = new JTextArea(1,20);
         ta7 = new JTextArea(1,20);
@@ -85,11 +81,12 @@ public class ExampleWeather extends JPanel{
         atmosPressure = json.getJSONObject("currently").getDouble("pressure");
         vis = json.getJSONObject("currently").getDouble("visibility");
 
+        /*
         System.out.println("Nearest Storm: " + nearestStorm + " miles");
         System.out.println("Probability of Precipitation :" + probPrecip + "%");
         System.out.println(json.getJSONObject("currently").getString("summary"));        
         System.out.println(json.getJSONObject("currently").getDouble("pressure"));
-
+        */
         Font myFont = new Font("Serif", Font.PLAIN, 8);
         
         ta1.setFont(myFont);
