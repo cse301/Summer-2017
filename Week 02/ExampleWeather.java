@@ -37,7 +37,7 @@ public class ExampleWeather {
   public static void main(String[] args) throws IOException, JSONException {
     String yourKey = ""; //get your key from darksky.net
     JSONObject json = readJsonFromUrl("https://api.darksky.net/forecast/"
-            +"yourKey+"/37.8267,-122.4233");
+            +"yourKeyHere"+"/37.8267,-122.4233");
     System.out.println(json.toString());
     System.out.println(json.getJSONObject("currently").getString("summary"));
   }
