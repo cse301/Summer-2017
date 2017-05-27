@@ -23,7 +23,7 @@ import org.json.JSONObject;
 
 public class ExampleWeather extends JPanel{
     
-    private JTextArea ta1, ta2, ta3, ta4, ta5, ta6, ta7, ta8, ta9, ta10;
+    private JTextArea ta1, ta2, ta3, ta4, ta5, ta6, ta7, ta8, ta9;
     private GridLayout grid;
     
     
@@ -49,7 +49,6 @@ public class ExampleWeather extends JPanel{
         ta7 = new JTextArea(1,20);
         ta8 = new JTextArea(1,20);
         ta9 = new JTextArea(1,20);
-        ta10 = new JTextArea(1,20);
         
         ta1.setEditable(false);
         ta2.setEditable(false);
@@ -60,7 +59,6 @@ public class ExampleWeather extends JPanel{
         ta7.setEditable(false);
         ta8.setEditable(false);
         ta9.setEditable(false);
-        ta10.setEditable(false);
         
         Double time = 0.0;
         Double temp = 0.0;
@@ -98,18 +96,16 @@ public class ExampleWeather extends JPanel{
         ta7.setFont(myFont);
         ta8.setFont(myFont);
         ta9.setFont(myFont);
-        ta10.setFont(myFont);
         
         this.ta1.setText((String) timeZone);
-        this.ta2.setText("Forecast: " + json.getJSONObject("daily").getString("summary"));
-        this.ta3.setText("Currently: " + json.getJSONObject("currently").getString("summary"));
-        this.ta4.setText("Temp: " + String.valueOf(temp) + "°F");
-        this.ta5.setText("Nearest Storm: " + String.valueOf(nearestStorm) + " miles");
-        this.ta6.setText("Prob of Precip: " + String.valueOf(probPrecip) + "%");
-        this.ta7.setText("Wind Speed: " + String.valueOf(windVelocity) + " mph");
-        this.ta8.setText("Wind Direction: " + String.valueOf(windDirection) + "°");
-        this.ta9.setText("Pressure: " + String.valueOf(atmosPressure) + " hPa");
-        this.ta10.setText("Visibility: " + String.valueOf(vis) + " miles");
+        this.ta2.setText("Currently: " + json.getJSONObject("currently").getString("summary"));
+        this.ta3.setText("Temp: " + String.valueOf(temp) + "°F");
+        this.ta4.setText("Nearest Storm: " + String.valueOf(nearestStorm) + " miles");
+        this.ta5.setText("Prob of Precip: " + String.valueOf(probPrecip) + "%");
+        this.ta6.setText("Wind Speed: " + String.valueOf(windVelocity) + " mph");
+        this.ta7.setText("Wind Direction: " + String.valueOf(windDirection) + "°");
+        this.ta8.setText("Pressure: " + String.valueOf(atmosPressure) + " hPa");
+        this.ta9.setText("Visibility: " + String.valueOf(vis) + " miles");
         
                 
         this.setLayout(new GridLayout(10,1));
@@ -122,24 +118,10 @@ public class ExampleWeather extends JPanel{
         this.add(ta7);
         this.add(ta8);
         this.add(ta9);
-        this.add(ta10);
         
-        /*
-        ta1.setText("Text Area 1");
-        ta2.setText("Text Area 2");
-        ta3.setText("Text Area 3");
-        ta4.setText("Text Area 4");
-        ta5.setText("Text Area 5");
-        ta6.setText("Text Area 6");
-        ta7.setText("Text Area 7");
-        ta8.setText("Text Area 8");    
-        ta9.setText("Text Area 9");
-        ta10.setText("Text Area 10");
-        */
-        //return weatherPanel;
     }
     
-    
+
 
   private static String readAll(Reader rd) throws IOException {
     StringBuilder sb = new StringBuilder();
