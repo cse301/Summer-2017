@@ -23,14 +23,15 @@ public class ExampleGoogleMaps extends JPanel{
         public JPanel createMap(){
             //System.out.println("createMap called");
             JPanel mapPanel = new JPanel();
+            mapPanel.setSize(125,125);
             
-            try {
+	    try {
                 //String imageUrl = "https://maps.googleapis.com/maps/api/staticmap?" 
-                  //      +"center=40.714728,-73.998672&zoom=11&size=612x612&scale=2&maptype=roadmap";
-                
+                //        +"center=40.714728,-73.998672&zoom=11&size=612x612&scale=2&maptype=roadmap";
+             
                 // changed coordinates to ASU Tempe Campus
                 String imageUrl = "https://maps.googleapis.com/maps/api/staticmap?" 
-                        +"center=33.424240,-111.928053&zoom=11&size=612x612&scale=2&maptype=roadmap";
+                        +"center=33.416952,-111.939817&zoom=9&size=250x250&scale=1&maptype=roadmap";
 
                 String destinationFile = "image.jpg";
                 String str = destinationFile;
@@ -49,9 +50,9 @@ public class ExampleGoogleMaps extends JPanel{
                 System.exit(1);
             }
 
-            mapPanel.add(new JLabel(new ImageIcon((new ImageIcon("image.jpg")).getImage().getScaledInstance(630, 600,
+            mapPanel.add(new JLabel(new ImageIcon((new ImageIcon("image.jpg")).getImage().getScaledInstance(125, 125,
                     java.awt.Image.SCALE_SMOOTH))));
-            mapPanel.setSize(125,125);
+	    //630,600
             mapPanel.setVisible(true);
             return mapPanel;
             
