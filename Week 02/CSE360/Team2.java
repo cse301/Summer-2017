@@ -27,7 +27,7 @@ public class Team2 extends JPanel{
         }
     }
     
-    public Team2() throws IOException {            
+    public Team2() {            
             try {
             	/*-------------------------------GoogleMap--------------------------------*/
                 // Parameter Declarations
