@@ -174,14 +174,6 @@ public class ExampleWeather extends JFrame{
     e.ta9.setText("Pressure: " + String.valueOf(atmosPressure) + " hPa");
     e.ta10.setText("Visibility: " + String.valueOf(vis) + " miles");
    
-    
-    //e.ta5.setText(String.valueOf(time));
-    
-    
 
-    //System.out.println(json.getJSONObject("currently").get("time"));
-    
-    
-  
   }
 }
