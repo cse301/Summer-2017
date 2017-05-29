@@ -23,7 +23,7 @@ public class ExampleGoogleMaps extends JPanel{
         public JPanel createMap(){
             //System.out.println("createMap called");
             JPanel mapPanel = new JPanel();
-            mapPanel.setSize(125,125);
+            mapPanel.setSize(250,250);
             
 	    try {
                 //String imageUrl = "https://maps.googleapis.com/maps/api/staticmap?" 
@@ -50,9 +50,9 @@ public class ExampleGoogleMaps extends JPanel{
                 System.exit(1);
             }
 
-            mapPanel.add(new JLabel(new ImageIcon((new ImageIcon("image.jpg")).getImage().getScaledInstance(125, 125,
+            mapPanel.add(new JLabel(new ImageIcon((new ImageIcon("image.jpg")).getImage().getScaledInstance(630,600,
                     java.awt.Image.SCALE_SMOOTH))));
-	    //630,600
+	    //125,125
             mapPanel.setVisible(true);
             return mapPanel;
             
