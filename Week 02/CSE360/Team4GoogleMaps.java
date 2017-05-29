@@ -18,7 +18,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class ExampleGoogleMaps extends JPanel{
+public class Team4GoogleMaps extends JPanel{
     
         public JPanel createMap(){
             //System.out.println("createMap called");
@@ -33,7 +33,7 @@ public class ExampleGoogleMaps extends JPanel{
                 String imageUrl = "https://maps.googleapis.com/maps/api/staticmap?" 
                         +"center=33.416952,-111.939817&zoom=9&size=250x250&scale=1&maptype=roadmap";
 
-                String destinationFile = "image.jpg";
+                String destinationFile = "Team4Image.jpg";
                 String str = destinationFile;
                 URL url = new URL(imageUrl);
                 OutputStream os;
@@ -50,7 +50,7 @@ public class ExampleGoogleMaps extends JPanel{
                 System.exit(1);
             }
 
-            mapPanel.add(new JLabel(new ImageIcon((new ImageIcon("image.jpg")).getImage().getScaledInstance(125,125,
+            mapPanel.add(new JLabel(new ImageIcon((new ImageIcon("Team4Image.jpg")).getImage().getScaledInstance(125,125,
                     java.awt.Image.SCALE_SMOOTH))));
 	    //125,125  630,600
             mapPanel.setVisible(true);

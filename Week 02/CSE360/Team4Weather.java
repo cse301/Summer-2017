@@ -21,13 +21,13 @@ import javax.swing.*;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ExampleWeather extends JPanel{
+public class Team4Weather extends JPanel{
     
     private JTextArea ta1, ta2, ta3, ta4, ta5, ta6, ta7, ta8, ta9;
     private GridLayout grid;
     
     
-    public ExampleWeather() throws IOException, JSONException{
+    public Team4Weather() throws IOException, JSONException{
         
         createWeather();    
     }

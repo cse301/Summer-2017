@@ -27,8 +27,8 @@ public class Team4 extends JPanel{
         	this.setLayout(myGrid);
         	this.setVisible(true);
         	this.setSize(250,125);
-        	this.add(new ExampleWeather());
-        	this.add(new ExampleGoogleMaps().createMap());
+        	this.add(new Team4Weather());
+        	this.add(new Team4GoogleMaps().createMap());
         }
         catch(IOException e){
             System.out.println("IO Exception !!");
