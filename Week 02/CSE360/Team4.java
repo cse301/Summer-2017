@@ -26,7 +26,7 @@ public class Team4 extends JPanel{
         
         	this.setLayout(myGrid);
         	this.setVisible(true);
- //       	this.setSize(250,125);
+        	this.setSize(250,125);
         	this.add(new ExampleWeather());
         	this.add(new ExampleGoogleMaps().createMap());
         }

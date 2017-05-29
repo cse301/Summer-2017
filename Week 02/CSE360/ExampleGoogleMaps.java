@@ -50,9 +50,9 @@ public class ExampleGoogleMaps extends JPanel{
                 System.exit(1);
             }
 
-            mapPanel.add(new JLabel(new ImageIcon((new ImageIcon("image.jpg")).getImage().getScaledInstance(630,600,
+            mapPanel.add(new JLabel(new ImageIcon((new ImageIcon("image.jpg")).getImage().getScaledInstance(125,125,
                     java.awt.Image.SCALE_SMOOTH))));
-	    //125,125
+	    //125,125  630,600
             mapPanel.setVisible(true);
             return mapPanel;
             
