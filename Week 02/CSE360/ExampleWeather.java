@@ -1,148 +1,189 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-//package Team4Week2;
-
 package CSE360;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.URL;
-import java.nio.charset.Charset;
 import java.awt.*;
+import java.io.*;
+import java.net.URL;
 import javax.swing.*;
+import org.json.*;
+import java.net.*;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-public class ExampleWeather extends JPanel{
+public class Team2 extends JPanel{
     
-    private JTextArea ta1, ta2, ta3, ta4, ta5, ta6, ta7, ta8, ta9;
-    private GridLayout grid;
-    
-    
-    public ExampleWeather() throws IOException, JSONException{
-        
-        createWeather();    
+    // Nested class for gradient BG
+    public class JPane extends JLabel {
+        public JPane() {
+        }
+        @Override
+        protected void paintComponent(Graphics g) {
+            Graphics2D g2d = (Graphics2D) g.create();
+            LinearGradientPaint lgp = new LinearGradientPaint(
+                    new Point(0, 0), 
+                    new Point(0, getHeight()), 
+                    new float[]{0.1f, 0.3f, 0.9f}, 
+                    new Color[]{new Color(220, 220, 255), new Color(150, 150, 210), new Color(40, 40, 100)});
+            g2d.setPaint(lgp);
+            g2d.fill(new Rectangle(0, 0, getWidth(), getHeight()));
+            g2d.dispose();
+            super.paintComponent(g);
+        }
     }
     
-    public void createWeather() throws IOException, JSONException{
-        //System.out.println("create Weather called");
-        
-        String yourKey = "cab82799b5b1e817dbccab51d6d7ec40"; 
-        JSONObject json = readJsonFromUrl("https://api.darksky.net/forecast/"
-                + yourKey +"/33.421968,-111.936642");
-        //System.out.println(json.get("timezone"));
+    public Team2() {            
+            try {
+            	/*-------------------------------GoogleMap--------------------------------*/
+                // Parameter Declarations
+                String gKey = "AIzaSyCz92cudhuiKxqRG-AEFPHbEXk-6H_R9eM";
+                String mapType = "roadmap";
+                double lat = 33.4255;
+                double lon = -111.9400;
+                int mapWidth = 250;
+                int mapHeight = 55;     
+                int scale = 2; 
+                // Concatenate URL
+                String mapUrl = "https://maps.googleapis.com/maps/api/staticmap?" 
+                            + "center=" + lat +"," + lon 
+                            + "&zoom=11&size=" + mapWidth + "x" + mapHeight 
+                            + "&scale=" + scale + "&maptype=" + mapType + "&key=" 
+                            + gKey;
+                String fileName = "result.jpg";
+                URL url = new URL(mapUrl);               
+                // Open IO Streams
+                InputStream is = url.openStream();
+                OutputStream os = new FileOutputStream(fileName);
 
-        ta1 = new JTextArea(1,20);
-        ta2 = new JTextArea(1,20);
-        ta3 = new JTextArea(1,20);
-        ta4 = new JTextArea(1,20);
-        ta5 = new JTextArea(1,20);
-        ta6 = new JTextArea(1,20);
-        ta7 = new JTextArea(1,20);
-        ta8 = new JTextArea(1,20);
-        ta9 = new JTextArea(1,20);
-        
-        ta1.setEditable(false);
-        ta2.setEditable(false);
-        ta3.setEditable(false);
-        ta4.setEditable(false);
-        ta5.setEditable(false);
-        ta6.setEditable(false);
-        ta7.setEditable(false);
-        ta8.setEditable(false);
-        ta9.setEditable(false);
-        
-        Double time = 0.0;
-        Double temp = 0.0;
-        Double nearestStorm = 0.0;
-        Double probPrecip = 0.0;      
-        Double windVelocity = 0.0;
-        Double windDirection = 0.0;
-        Double atmosPressure = 0.0;
-        Double vis = 0.0;
-        Object timeZone = json.get("timezone");
-
-        temp = json.getJSONObject("currently").getDouble("temperature");
-        nearestStorm = json.getJSONObject("currently").getDouble("nearestStormDistance");
-        time = json.getJSONObject("currently").getDouble("time");
-        probPrecip = json.getJSONObject("currently").getDouble("precipProbability");
-        windVelocity = json.getJSONObject("currently").getDouble("windSpeed");
-        windDirection = json.getJSONObject("currently").getDouble("windBearing");
-        atmosPressure = json.getJSONObject("currently").getDouble("pressure");
-        vis = json.getJSONObject("currently").getDouble("visibility");
-
-        /*
-        System.out.println("Nearest Storm: " + nearestStorm + " miles");
-        System.out.println("Probability of Precipitation :" + probPrecip + "%");
-        System.out.println(json.getJSONObject("currently").getString("summary"));        
-        System.out.println(json.getJSONObject("currently").getDouble("pressure"));
-        */
-        Font myFont = new Font("Serif", Font.PLAIN, 8);
-        
-        ta1.setFont(myFont);
-        ta2.setFont(myFont);
-        ta3.setFont(myFont);
-        ta4.setFont(myFont);
-        ta5.setFont(myFont);
-        ta6.setFont(myFont);
-        ta7.setFont(myFont);
-        ta8.setFont(myFont);
-        ta9.setFont(myFont);
-        
-        this.ta1.setText((String) timeZone);
-        this.ta2.setText("Currently: " + json.getJSONObject("currently").getString("summary"));
-        this.ta3.setText("Temp: " + String.valueOf(temp) + "°F");
-        this.ta4.setText("Nearest Storm: " + String.valueOf(nearestStorm) + " miles");
-        this.ta5.setText("Prob of Precip: " + String.valueOf(probPrecip) + "%");
-        this.ta6.setText("Wind Speed: " + String.valueOf(windVelocity) + " mph");
-        this.ta7.setText("Wind Direction: " + String.valueOf(windDirection) + "°");
-        this.ta8.setText("Pressure: " + String.valueOf(atmosPressure) + " hPa");
-        this.ta9.setText("Visibility: " + String.valueOf(vis) + " miles");
-        
+                byte[] b = new byte[2048];
+                int length;
                 
-        this.setLayout(new GridLayout(10,1));
-        this.add(ta1);
-        this.add(ta2);
-        this.add(ta3);
-        this.add(ta4);
-        this.add(ta5);
-        this.add(ta6);
-        this.add(ta7);
-        this.add(ta8);
-        this.add(ta9);
-        
-    }
-    
-
-
-  private static String readAll(Reader rd) throws IOException {
-    StringBuilder sb = new StringBuilder();
-    int cp;
-    while ((cp = rd.read()) != -1) {
-      sb.append((char) cp);
-    }
-    return sb.toString();
-  }
-
-  public static JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
-    InputStream is = new URL(url).openStream();
-    try {
-      BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-      String jsonText = readAll(rd);
-      JSONObject json = new JSONObject(jsonText);
-      return json;
-    } finally {
-        
-      is.close();
-    }
-  }
+                // Read one byte of image data and write it to output
+                while ((length = is.read(b)) != -1) {
+                    os.write(b, 0, length);
+                }
+                is.close();
+                os.close();
+                
+                // Add map image as label
+                JLabel map = new JLabel(new ImageIcon((new ImageIcon(fileName)).getImage().getScaledInstance(mapWidth, mapHeight, java.awt.Image.SCALE_SMOOTH)));
+                
+                /*---------------------------DarkskyWeather-------------------------------*/
+                String wKey = "29fd0065da58c853121182640d464df8";
+                String weaUrl = "https://api.darksky.net/forecast/" + wKey + "/" + lat + "," + lon;
+                // Connect to darksky.net
+                url = new URL(weaUrl);
+                URLConnection wc = url.openConnection();
+                BufferedReader in = new BufferedReader(
+                                    new InputStreamReader(
+                                    wc.getInputStream()));
+                String inputLine;
+                String json = "";                
+                // Read response and add to string
+                while ((inputLine = in.readLine()) != null) {
+                    json = json + inputLine;
+                }
+                // Parse JSON
+                JSONObject obj = new JSONObject(json);
+                in.close();
+                
+                //5 Weather info: Temperature, Visibility, WindSpeed, Humidity, DewPoint
+                Double temp = obj.getJSONObject("currently").getDouble("temperature");
+                
+                Font general = new Font("Sans Serif", Font.BOLD, 10);
+                int color_red = temp.intValue() * 2;
+                if (color_red > 255) {
+                    color_red = 255;                   
+                } else if (color_red < 0) {
+                    color_red = 0;
+                }
+                int color_blue = 255 - color_red;
+                JLabel  l_temp = new JLabel (String.valueOf(temp));
+                l_temp.setForeground(new Color(color_red, 50, color_blue));                
+                l_temp.setBackground(Color.LIGHT_GRAY);
+                l_temp.setFont(new Font("Sans Serif", Font.BOLD, 12));
+                
+                int vis = obj.getJSONObject("currently").getInt("visibility");
+                JLabel l_vis = new JLabel (String.valueOf(vis));
+                l_vis.setFont(general);
+                l_vis.setForeground(Color.WHITE);
+                double ws = obj.getJSONObject("currently").getDouble("windSpeed");
+                JLabel l_ws = new JLabel (String.valueOf(ws));
+                l_ws.setForeground(Color.WHITE); 
+                l_ws.setFont(general);
+                double hum = obj.getJSONObject("currently").getDouble("humidity");
+                JLabel l_hum = new JLabel (String.valueOf(hum));
+                l_hum.setForeground(Color.WHITE);
+                l_hum.setFont(general);
+                double dew = obj.getJSONObject("currently").getDouble("dewPoint");
+                JLabel l_dew = new JLabel (String.valueOf(dew));
+                l_dew.setFont(general);
+                l_dew.setForeground(Color.WHITE); 
+             
+                String filePath = "src/CSE360/imagesTeam2/";
+                JLabel pic = new JLabel(new ImageIcon((new ImageIcon(filePath+(obj.getJSONObject("currently").getString("icon") + ".gif"))).getImage().getScaledInstance(64, 64, java.awt.Image.SCALE_SMOOTH)));
+                JLabel icon_vis = new JLabel(new ImageIcon((new ImageIcon(filePath+"visibility.png")).getImage().getScaledInstance(12, 12, java.awt.Image.SCALE_SMOOTH)));
+                JLabel icon_temp = new JLabel(new ImageIcon((new ImageIcon(filePath+"temperature.png")).getImage().getScaledInstance(12, 12, java.awt.Image.SCALE_SMOOTH)));
+                JLabel icon_ws = new JLabel(new ImageIcon((new ImageIcon(filePath+"windSpeed.png")).getImage().getScaledInstance(12, 12, java.awt.Image.SCALE_SMOOTH)));
+                JLabel icon_hum = new JLabel(new ImageIcon((new ImageIcon(filePath+"humidity.png")).getImage().getScaledInstance(12, 12, java.awt.Image.SCALE_SMOOTH)));
+                JLabel icon_dew = new JLabel(new ImageIcon((new ImageIcon(filePath+"dewPoint.png")).getImage().getScaledInstance(12, 12, java.awt.Image.SCALE_SMOOTH)));
+                
+                //Create a panel for all Weather info
+                try {
+                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+                    System.exit(1);
+                }
+                JPane Weather = new JPane();                
+                
+                //Use SpringLayout
+                SpringLayout layout = new SpringLayout();
+                Weather.setLayout(layout);
+                Weather.setBackground(Color.LIGHT_GRAY);
+                Weather.setSize(200, 70);
+                Weather.add(pic);                
+                layout.putConstraint(SpringLayout.WEST, pic, 0, SpringLayout.WEST, Weather);
+                layout.putConstraint(SpringLayout.NORTH, pic, 0, SpringLayout.NORTH, Weather);
+                Weather.add(icon_temp);
+                layout.putConstraint(SpringLayout.WEST, icon_temp, 0, SpringLayout.EAST, pic);
+                layout.putConstraint(SpringLayout.NORTH, icon_temp, 0, SpringLayout.NORTH, Weather);
+                Weather.add(icon_vis);
+                layout.putConstraint(SpringLayout.WEST, icon_vis, 0, SpringLayout.EAST, pic);
+                layout.putConstraint(SpringLayout.NORTH, icon_vis, 0, SpringLayout.SOUTH, icon_temp);
+                Weather.add(icon_ws);
+                layout.putConstraint(SpringLayout.WEST, icon_ws, 0, SpringLayout.EAST, pic);
+                layout.putConstraint(SpringLayout.NORTH, icon_ws, 0, SpringLayout.SOUTH, icon_vis);
+                Weather.add(icon_hum);
+                layout.putConstraint(SpringLayout.WEST, icon_hum, 0, SpringLayout.EAST, pic);
+                layout.putConstraint(SpringLayout.NORTH, icon_hum, 0, SpringLayout.SOUTH, icon_ws);
+                Weather.add(icon_dew);
+                layout.putConstraint(SpringLayout.WEST, icon_dew, 0, SpringLayout.EAST, pic);
+                layout.putConstraint(SpringLayout.NORTH, icon_dew, 0, SpringLayout.SOUTH, icon_hum);
+                
+                Weather.add(l_temp);
+                layout.putConstraint(SpringLayout.WEST, l_temp, 0, SpringLayout.EAST, icon_temp);
+                layout.putConstraint(SpringLayout.NORTH, l_temp, 0, SpringLayout.NORTH, Weather);
+                Weather.add(l_vis);
+                layout.putConstraint(SpringLayout.WEST, l_vis, 0, SpringLayout.EAST, icon_vis);
+                layout.putConstraint(SpringLayout.NORTH, l_vis, 0, SpringLayout.SOUTH, l_temp);
+                Weather.add(l_ws);
+                layout.putConstraint(SpringLayout.WEST, l_ws, 0, SpringLayout.EAST, icon_ws);
+                layout.putConstraint(SpringLayout.NORTH, l_ws, 2, SpringLayout.SOUTH, l_vis);
+                Weather.add(l_hum);
+                layout.putConstraint(SpringLayout.WEST, l_hum, 0, SpringLayout.EAST, icon_hum);
+                layout.putConstraint(SpringLayout.NORTH, l_hum, 2, SpringLayout.SOUTH, l_ws);
+                Weather.add(l_dew);
+                layout.putConstraint(SpringLayout.WEST, l_dew, 0, SpringLayout.EAST, icon_dew);
+                layout.putConstraint(SpringLayout.NORTH, l_dew, 2, SpringLayout.SOUTH, l_hum);
+                
+                //Create a whole panel that contains all
+                JPanel all = new JPanel();
+                all.setLayout(new GridLayout(2,1));
+                all.add(map);
+                all.add(Weather);
+                add(all);
+                
+            } catch (IOException e) {
+                System.exit(1);
+            } catch (JSONException e) {
+                System.exit(1);                
+            }      
+        }   
     
 }
+
