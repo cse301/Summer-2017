@@ -23,6 +23,7 @@ package cse360;
 
 
 import java.awt.*;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import javax.swing.*;
 import java.util.Date;
@@ -36,41 +37,31 @@ import java.util.Date;
 public class WeatherPanel extends JPanel {
 
     private WeatherInfo geoLocation;
+    private ImageIcon weatherIcon;
+    private JLabel weatherLabel;
 
 
     /**
      * Creates new form WeatherPanel
      */
-    public WeatherPanel(double latitude, double longitude) {
+    public WeatherPanel(double latitude, double longitude)  {
         geoLocation = new WeatherInfo(latitude,longitude);
         initComponents();
     }
 
     @SuppressWarnings("unchecked")
-    private void initComponents() {
-        IconImage = new javax.swing.JPanel();
+    private void initComponents()  {
         TextHumidity = new javax.swing.JTextField();
         TextTemperature = new javax.swing.JTextField();
         TextPrecipitationProbability = new javax.swing.JTextField();
         TextCloudCover = new javax.swing.JTextField();
-
+        weatherIcon = new ImageIcon("src\\cse360\\images\\"+geoLocation.getWeatherFieldString("currently","icon")+".png");
+        
+        weatherLabel = new JLabel("", weatherIcon, JLabel.CENTER);
+        weatherLabel.setIcon(weatherIcon);
         setLayout(new java.awt.BorderLayout());
 
-        IconImage.setPreferredSize(new java.awt.Dimension(20, 20));
-
-        javax.swing.GroupLayout IconImageLayout = new javax.swing.GroupLayout(IconImage);
-        IconImage.setLayout(IconImageLayout);
-        IconImageLayout.setHorizontalGroup(
-            IconImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 431, Short.MAX_VALUE)
-        );
-        IconImageLayout.setVerticalGroup(
-            IconImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 331, Short.MAX_VALUE)
-        );
-
-        add(IconImage, java.awt.BorderLayout.CENTER);
-//        jTextFieldTemperature.setText(geoLocation.getWeatherFieldString("currently", "temperature"));
+        add(weatherLabel,java.awt.BorderLayout.CENTER);
         TextHumidity.setText(geoLocation.getWeatherFieldString("currently", "humidity")+" [Humidity]");
         add(TextHumidity, java.awt.BorderLayout.PAGE_START);
 
