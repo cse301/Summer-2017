@@ -175,7 +175,9 @@ public class Team2 extends JPanel{
                 
             } catch (IOException e) {
                 System.exit(1);
-            }              
+            }  catch (JSONException e) {
+                System.exit(1);                
+            }             
         }   
     
 }
