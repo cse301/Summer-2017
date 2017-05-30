@@ -92,10 +92,24 @@ public class WeatherInfo {
             ) { return true; }
         else { return false; }
     }
-    public String getWeatherField(String timeType, String wkey){
+    private boolean isWeatherInfoKey_String(String wkey){ 
+        if(
+                wkey.matches("summary")|| 
+                wkey.matches("icon")
+            ) { return true; }
+        else { return false; }
+    }
+    public String getWeatherFieldString(String timeType, String wkey){
         if ( !isValid_TimeType(timeType) ) { return "ERROR: Invalid timeType (valid: currently, minutely, hourly, daily)"; }
         else if ( !isValid_WeatherInfoKey(wkey)) {  return "ERROR: Invalid weather key";  }
-        else { return darksky.getJSONObject(timeType).getString(wkey); }
+        else { 
+            if(isWeatherInfoKey_String(wkey)) { 
+              return darksky.getJSONObject(timeType).getString(wkey); 
+            }
+            else { 
+                return String.valueOf(darksky.getJSONObject(timeType).getDouble(wkey));
+            }
+        }
     }
     
     private JSONObject getLatestWeatherJSON() {
@@ -118,6 +132,7 @@ public class WeatherInfo {
         int cp; 
         while((cp=rd.read())!=-1) { // while reader is not at end of buffer
             sb.append((char)cp); // append the current character to stringbuilder
+            System.out.print((char)cp);
         }
         return sb.toString(); //need actual string within buffer, returning that
     }
